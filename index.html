@@ -1,27 +1,27 @@
-<body
-  style="height: 100vh; background: #111; display: grid; place-items: center"
->
-  <canvas id="c" width="400" height="400"></canvas>
+<body style="height: 100vh; background: #111; display: grid; place-items: center">
+  <canvas id="c" width="400" height="400">
   <script>
-    context = c.getContext(`2d`);
-    birdSize = interval = pipeWidth = gapBottomY = 24;
-    bird = new Image();
+    console.log(c)
+    const context = c.getContext(`2d`);
+    const bird = new Image();
     bird.src = 'bird.png';
-    windowSize = pipeX = 401;
-    c.onclick = () => (birdDY = 9);
-    birdDY = score = pipeX = bestScore = 0;
+    birdX = birdDY = pipeX = score = bestScore = 0;
+    birdSize = interval = pipeWidth = gapBottomY = 24;
     birdY = pipeGap = 200;
+    windowSize = pipeX = 400;
+    c.onclick = () => (birdDY = 9);
     setInterval(() => {
       context.fillStyle = `skyblue`;
       context.fillRect(0, 0, windowSize, windowSize); // Reset Canvas
       context.fillStyle = `green`;
       birdY -= birdDY -= 0.5; // Move bird, gravity is 0.5
-      context.drawImage(bird, 0, birdY, birdSize * (524 / 374), birdSize); // Draw bird
+      context.drawImage(bird, birdX, birdY, birdSize * (524 / 374), birdSize); // Draw bird
       pipeX -= 8; // Move pipe left
       pipeX < -pipeWidth && // Pipe moved off screen?
         ((pipeX = windowSize), (gapBottomY = pipeGap * Math.random())); // Create new pipe
       context.fillRect(pipeX, 0, pipeWidth, gapBottomY); // Draw top tipe
       context.fillRect(pipeX, gapBottomY + pipeGap, pipeWidth, windowSize); // Draw bottom pipe
+      context.fillStyle = `black`;
       context.fillText(score++, 9, 25); // Draw score
       bestScore = bestScore < score ? score : bestScore; // New best score?
       context.fillText(`Best: ${bestScore}`, 9, 50); // Draw best score
@@ -31,4 +31,3 @@
         ((birdDY = score = 0), (pipeX = windowSize), (birdY = pipeGap)); // Bird died, Reset game.
     }, interval);
   </script>
-</body>
