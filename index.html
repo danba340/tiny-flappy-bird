@@ -8,6 +8,7 @@
     interval = birdSize = pipeWidth = topPipeBottomY = 24;
     birdY = pipeGap = 200;
     canvasSize = pipeX = 400;
+    difficulty = 6;
     c.onclick = () => (birdDY = 9) ;
     setInterval(() => {
       context.fillStyle = "skyblue";
@@ -15,7 +16,8 @@
       birdY -= birdDY -= 0.5; // Gravity
       context.drawImage(bird, birdX, birdY, birdSize * (524/374), birdSize); // Draw bird
       context.fillStyle = "green";
-      pipeX -= 8; // Move pipe
+      pipeX -= Math.floor(difficulty); // Move pipe
+      difficulty += 0.01;
       pipeX < -pipeWidth && // Pipe off screen?
         ((pipeX = canvasSize), (topPipeBottomY = pipeGap * Math.random())); // Reset pipe and randomize gap.
       context.fillRect(pipeX, 0, pipeWidth, topPipeBottomY); // Draw top pipe
@@ -26,7 +28,7 @@
       context.fillText(`Best: ${bestScore}`, 9, 50); // Draw best score
       (((birdY < topPipeBottomY || birdY > topPipeBottomY + pipeGap) && pipeX < birdSize * (524/374))// Bird hit pipe?
        || birdY > canvasSize) && // Bird falls off screen
-      ((birdDY = 0), (birdY = 200), (pipeX = canvasSize), (score = 0)); // Bird died
+      ((birdDY = 0), (birdY = 200), (pipeX = canvasSize), (score = 0), (difficulty = 6)); // Bird died
     }, interval)
   </script>
 </body>
