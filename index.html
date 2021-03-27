@@ -8,7 +8,7 @@
     interval = birdSize = pipeWidth = topPipeBottomY = 24;
     birdY = pipeGap = 200;
     canvasSize = pipeX = 400;
-    c.ontouchstart = () => (birdDY = 9) ;
+    c.onclick = () => (birdDY = 9) ;
     setInterval(() => {
       context.fillStyle = "skyblue";
       context.fillRect(0,0,canvasSize,canvasSize); // Draw sky
